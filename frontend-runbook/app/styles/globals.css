@@ -1,0 +1,265 @@
+@import "tw-animate-css";
+@import "tailwindcss";
+
+:root {
+  --radius: 0.625rem;
+  --background: #0b0b0c;
+  --foreground: #e6e6e6;
+  --card: #111111;
+  --card-foreground: #e6e6e6;
+  --popover: #161616;
+  --popover-foreground: #e6e6e6;
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
+  --secondary: #1c1c1c;
+  --secondary-foreground: #e6e6e6;
+  --muted: #161616;
+  --muted-foreground: #a1a1aa;
+  --accent: #1c1c1c;
+  --accent-foreground: #e6e6e6;
+  --destructive: #ef4444;
+  --border: #27272a;
+  --input: #1f1f23;
+  --ring: rgba(99, 102, 241, 0.55);
+  --chart-1: #6366f1;
+  --chart-2: #3b82f6;
+  --chart-3: #22c55e;
+  --chart-4: #f59e0b;
+  --chart-5: #ef4444;
+  --sidebar: #0f0f10;
+  --sidebar-foreground: #e6e6e6;
+  --sidebar-primary: #6366f1;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1c1c1c;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #1f1f23;
+  --sidebar-ring: rgba(99, 102, 241, 0.55);
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.6);
+}
+
+@theme inline {
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-none;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply min-h-screen bg-background text-foreground antialiased;
+    font-family: var(--font-inter), Inter, system-ui, sans-serif;
+    background-image:
+      radial-gradient(circle at top, rgba(99, 102, 241, 0.12), transparent 28%),
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.035), transparent 18%);
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: rgba(99, 102, 241, 0.35);
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  .app-page {
+    @apply h-full overflow-y-auto px-6 py-6 md:px-8 md:py-8;
+  }
+
+  .app-page-inner {
+    @apply mx-auto flex w-full max-w-7xl flex-col gap-6;
+  }
+
+  .app-page-header {
+    @apply flex flex-col gap-3 border-b border-border pb-5 md:flex-row md:items-end md:justify-between;
+  }
+
+  .app-kicker {
+    color: #71717a;
+    @apply text-[11px] font-semibold uppercase tracking-[0.24em];
+  }
+
+  .app-title {
+    @apply text-2xl font-semibold tracking-tight text-foreground md:text-3xl;
+  }
+
+  .app-subtitle {
+    color: #a1a1aa;
+    @apply max-w-2xl text-sm leading-6;
+  }
+
+  .app-panel {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0)),
+      var(--card);
+    box-shadow: var(--shadow-sm);
+    @apply rounded-lg border border-border;
+  }
+
+  .app-panel-elevated {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0)),
+      var(--popover);
+    box-shadow: var(--shadow-md);
+    @apply rounded-xl border border-border;
+  }
+
+  .app-panel-header {
+    @apply flex items-center justify-between gap-4 border-b border-border px-5 py-4;
+  }
+
+  .app-panel-body {
+    @apply p-5;
+  }
+
+  .app-empty {
+    @apply rounded-lg border border-dashed border-border bg-card px-6 py-10 text-center;
+  }
+
+  .app-badge {
+    @apply inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-medium;
+  }
+
+  .app-table {
+    @apply w-full border-separate border-spacing-0 text-sm;
+  }
+
+  .app-table thead th {
+    background: #111111;
+    color: #a1a1aa;
+    @apply border-b border-border px-4 py-3 text-left text-xs font-medium uppercase tracking-[0.16em];
+  }
+
+  .app-table tbody tr {
+    background: #0b0b0c;
+    @apply transition-colors;
+  }
+
+  .app-table tbody tr:hover {
+    background: #161616;
+  }
+
+  .app-table tbody td {
+    @apply border-b border-[#1f1f23] px-4 py-4 align-middle;
+  }
+
+  .app-form-grid {
+    @apply grid gap-4 md:grid-cols-2;
+  }
+}
+
+@layer utilities {
+  .text-success {
+    color: var(--success);
+  }
+
+  .text-warning {
+    color: var(--warning);
+  }
+
+  .text-info {
+    color: var(--info);
+  }
+
+  .bg-success-soft {
+    background: rgba(34, 197, 94, 0.12);
+  }
+
+  .bg-warning-soft {
+    background: rgba(245, 158, 11, 0.12);
+  }
+
+  .bg-error-soft {
+    background: rgba(239, 68, 68, 0.12);
+  }
+
+  .bg-info-soft {
+    background: rgba(59, 130, 246, 0.12);
+  }
+}
+
+[data-slot="sidebar-container"] {
+  top: 4rem;
+  height: calc(100svh - 4rem);
+}
+
+.Chat {
+  background: transparent;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.react-flow__node-default {
+  background-color: transparent !important;
+  padding: 0 !important;
+}

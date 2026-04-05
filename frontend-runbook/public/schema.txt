@@ -1,0 +1,96 @@
+            <div className="mb-8">
+                <h1 className="text-xl font-light tracking-wide text-neutral-200">Organization settings</h1>
+                <p className="mt-2 text-sm text-neutral-500">Manage workspace configuration and members</p>
+            </div>
+
+            {/* Tabs */}
+            <div className="mb-10 flex gap-6 border-b border-white/10">
+                {["org", "members", "invitations", "databases"].map(tab => (
+                    <button
+                        key={tab}
+                        onClick={() => setActiveTab(tab as Tab)}
+                        className={`pb-3 text-sm transition ${activeTab === tab
+                            ? "border-b border-white text-neutral-200"
+                            : "text-neutral-500 hover:text-neutral-300"
+                            }`}
+                    >
+                        {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                    </button>
+                ))}
+            </div>
+
+            <div className="max-w-3xl">
+
+                {/* ORG TAB */}
+                {activeTab === "org" && (
+                    <section className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+                        <h2 className="text-sm font-medium text-neutral-200">Organization</h2>
+                        <div className="mt-6 space-y-4">
+                            <div>
+                                <label className="text-xs uppercase tracking-widest text-neutral-500">Name</label>
+                                <div className="mt-1 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-neutral-300">
+                                    {orgData?.name || "Loading..."}
+                                </div>
+                            </div>
+                            <div>
+                                <label className="text-xs uppercase tracking-widest text-neutral-500">Organization ID</label>
+                                <div className="mt-1 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-neutral-500">
+                                    {orgId || "Loading..."}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {/* MEMBERS TAB */}
+                {activeTab === "members" && (
+                    <div className="space-y-6">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-sm font-medium text-neutral-200">Members</h2>
+                            <Button variant="outline" size="sm" disabled={role !== "ADMIN"} onClick={() => setIsInviteOpen(true)}>
+                                Invite member
+                            </Button>
+                        </div>
+
+                        <div className={`rounded-2xl border border-white/10 bg-white/[0.04] overflow-hidden divide-y divide-white/5`}>
+                            {orgData?.members?.map((member: any) => (
+                                <div key={member.userId} className={`flex items-center justify-between px-6 py-4 ${member.email === userEmail ? "bg-green-400/[0.10]" : ""}`}>
+                                    <div>
+                                        <p className="text-sm text-neutral-200">{member.email}</p>
+                                        <p className="text-xs text-neutral-500">{member.role}</p>
+                                    </div>
+                                    <div className="flex flex-col">
+
+                                        <span className="text-xs text-neutral-500">Active</span>
+                                        {userEmail === member.email && <span className="ml-2 text-xs text-green-600"> You</span>}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* INVITATIONS TAB */}
+                {activeTab === "invitations" && (
+                    <div className="space-y-6">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-sm font-medium text-neutral-200">Invitations</h2>
+                        </div>
+
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.04] divide-y divide-white/5">
+                            <>
+                                {sentInvites.length === 0 && <p className="text-xs text-neutral-500 py-6 text-center">No invitations sent</p>}
+                                {sentInvites.map(invite => (
+                                    <div key={invite.id} className="flex items-center justify-between px-6 py-4">
+                                        <div>
+                                            <p className="text-sm text-neutral-200">{invite.email}</p>
+                                            <p className="text-xs text-neutral-500">{invite.role}</p>
+                                        </div>
+                                        <Button variant="outline" size="sm" onClick={() => cancelInvite(invite.id)}>Cancel</Button>
+                                    </div>
+                                ))}
+                            </>
+
+                        </div>
+                    </div>
+                )}

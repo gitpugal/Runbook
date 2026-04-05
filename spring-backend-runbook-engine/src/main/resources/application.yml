@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: runbook-engine
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/runbook?TimeZone=Asia/Kolkata}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: pugalarasan2014@gmail.com
+    password: qred fjyo wyel narz
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: https://accounts.google.com
+
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+    consumer:
+      group-id: runbook-execution-engine
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+    listener:
+      missing-topics-fatal: false
+      observation-enabled: false
+
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+  endpoint:
+    prometheus:
+      access: unrestricted
+
+logging:
+  level:
+    root: INFO
+    com.runbook.engine: DEBUG
